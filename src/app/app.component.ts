@@ -7,12 +7,9 @@ import { ALL_SEARCH_RESULTS } from './mock-data';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   results = [];
   loadingResults;
-
-  ngOnInit() {
-    console.log(ALL_SEARCH_RESULTS);
-  }
 
   onSearchTermEntered(searchTerm) {
     console.log('search term from app', searchTerm);
@@ -38,11 +35,9 @@ export class AppComponent {
 
   getData(searchTerm) {
 
-    // simulating call to API
     const dataPromise = new Promise((resolve, reject) => {
       this.loadingResults = true;
 
-      // async request
       setTimeout(function(err, response) {
         response = ALL_SEARCH_RESULTS;
         if (err) {

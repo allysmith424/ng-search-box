@@ -6,7 +6,11 @@
     <app-search-suggestions></app-search-suggestions>
   </div>
 
-  <div class="results-container">
-    <app-search-results></app-search-results>
+  <div class="results-container" *ngIf="results[0]">
+    <div class="results-list" *ngFor="let result of results">
+      <app-search-results
+        [result]="result">
+      </app-search-results>
+    </div>
   </div>
 </div>
