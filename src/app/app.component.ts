@@ -12,15 +12,15 @@ export class AppComponent {
   results;
   suggestions;
   loadingResults;
+  noResults = false;
+  noSuggestions = false;
 
   onSearchTermEntered(searchTerm) {
     this.getData(searchTerm, 'results');
-    console.log('results', this.results);
   }
 
   onLatestSearchTerm(searchTerm) {
     this.getData(searchTerm, 'suggestions');
-    console.log('suggestions', this.suggestions);
   }
 
   findMatches(data, searchTerm, destination) {
@@ -38,30 +38,44 @@ export class AppComponent {
         matches.push(data.repositoryResults[i]);
       }
     }
-    destination === 'results' ? this.results = matches : this.suggestions = matches;
+    if (destination === 'results') {
+      console.log(matches[0]);
+      this.noResults = false;
+      matches[0] === undefined ? this.noResults = true : this.results = matches;
+    } else {
+      console.log(matches[0]);
+      matches[0] === undefined ? this.noSuggestions = true : this.suggestions = matches;
+    }
   }
 
   getData(searchTerm, destination) {
 
-    const dataPromise = new Promise((resolve, reject) => {
-      this.loadingResults = true;
+    this.noSuggestions = false;
 
-      setTimeout(function(err, response) {
-        response = ALL_SEARCH_RESULTS;
-        if (err) {
-          reject(err);
-        } else {
-          resolve(response);
-        }
-      }, 2000);
-    });
-
-    dataPromise.then((result) => {
+    if (searchTerm === '') {
       this.suggestions = [];
-      this.findMatches(result, searchTerm, destination);
-    }).catch((err) => {
-      console.log(err);
-    });
+      return;
+    }
+
+      const dataPromise = new Promise((resolve, reject) => {
+        this.loadingResults = true;
+
+        setTimeout(function(err, response) {
+          response = ALL_SEARCH_RESULTS;
+          if (err) {
+            reject(err);
+          } else {
+            resolve(response);
+          }
+        }, 1000);
+      });
+
+      dataPromise.then((result) => {
+        this.suggestions = [];
+        this.findMatches(result, searchTerm, destination);
+      }).catch((err) => {
+        console.log(err);
+      });
 
   }
 }

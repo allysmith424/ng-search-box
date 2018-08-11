@@ -1,1 +1,6 @@
-{{ suggestion.name }}
+<div class="search-suggestion">
+  <span *ngIf="suggestion.namespaceType">
+    {{ suggestion.namespaceType }}/
+  </span>
+  <strong>{{ suggestion.name }}</strong>
+</div>

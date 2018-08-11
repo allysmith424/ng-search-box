@@ -4,14 +4,20 @@
     (searchTermEntered)="onSearchTermEntered($event)"
     (latestSearchTerm)="onLatestSearchTerm($event)">
     </app-search-box>
+    <div class="no-suggestions" *ngIf="noSuggestions">
+      No records found...
+    </div>
     <div class="suggestions-container" *ngFor="let suggestion of suggestions">
-        <app-search-suggestions
-          [suggestion]="suggestion">
-        </app-search-suggestions>
+      <app-search-suggestions
+        [suggestion]="suggestion">
+      </app-search-suggestions>
     </div>
   </div>
 
   <div class="results-container">
+    <div class="no-results" *ngIf="noResults">
+      No records found...
+    </div>
     <div class="results-list" *ngFor="let result of results">
       <app-search-results
         [result]="result">

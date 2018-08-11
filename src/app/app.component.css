@@ -12,6 +12,7 @@ html {
 
 body {
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .main-container {
@@ -21,12 +22,19 @@ body {
 
 .search-container {
     position: absolute;
-    top: 25%;
+    top: 15%;
     width: 50%;
 }
 
 .results-container {
     position: absolute;
-    bottom: 25%;
+    top: 65%;
     width: 50%;
+}
+
+.no-results,
+.no-suggestions {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid gray;
 }
