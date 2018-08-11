@@ -11,16 +11,18 @@ export class AppComponent {
   searchEntered;
   results;
   suggestions;
-  loadingResults;
+  loading = false;
   noResults = false;
   noSuggestions = false;
 
   onSearchTermEntered(searchTerm) {
     this.getData(searchTerm, 'results');
+    this.loading = true;
   }
 
   onLatestSearchTerm(searchTerm) {
     this.getData(searchTerm, 'suggestions');
+    searchTerm === '' ? this.loading = false : this.loading = true;
   }
 
   findMatches(data, searchTerm, destination) {
@@ -38,12 +40,11 @@ export class AppComponent {
         matches.push(data.repositoryResults[i]);
       }
     }
+    this.loading = false;
     if (destination === 'results') {
-      console.log(matches[0]);
       this.noResults = false;
       matches[0] === undefined ? this.noResults = true : this.results = matches;
     } else {
-      console.log(matches[0]);
       matches[0] === undefined ? this.noSuggestions = true : this.suggestions = matches;
     }
   }
@@ -53,12 +54,12 @@ export class AppComponent {
     this.noSuggestions = false;
 
     if (searchTerm === '') {
+      this.loading = false;
       this.suggestions = [];
       return;
     }
 
       const dataPromise = new Promise((resolve, reject) => {
-        this.loadingResults = true;
 
         setTimeout(function(err, response) {
           response = ALL_SEARCH_RESULTS;

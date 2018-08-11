@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 
 @Component({
@@ -10,6 +10,8 @@ export class SearchBoxComponent implements OnInit {
 
   searchForm: FormGroup;
   message = '';
+
+  @Input() loading;
 
   @Output() searchTermEntered: EventEmitter<any> = new EventEmitter<any>();
   @Output() latestSearchTerm: EventEmitter<any> = new EventEmitter<any>();
@@ -32,7 +34,7 @@ export class SearchBoxComponent implements OnInit {
     if (e.key === 'Enter') {
       this.searchClicked();
     } else {
-      this.message = 'Press enter to search';
+      this.searchForm.value.searchTerm.trim() === '' ? this.message = '' : this.message = 'Press enter to search';
       this.latestSearchTerm.emit(this.searchForm.value.searchTerm.trim());
     }
   }

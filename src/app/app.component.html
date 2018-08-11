@@ -2,7 +2,8 @@
   <div class="search-container">
     <app-search-box
     (searchTermEntered)="onSearchTermEntered($event)"
-    (latestSearchTerm)="onLatestSearchTerm($event)">
+    (latestSearchTerm)="onLatestSearchTerm($event)"
+    [loading]="loading">
     </app-search-box>
     <div class="no-suggestions" *ngIf="noSuggestions">
       No records found...
