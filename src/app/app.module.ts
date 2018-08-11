@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { SearchSuggestionsComponent } from './search-suggestions/search-suggestions.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { SearchSuggestionsComponent } from './search-suggestions/search-suggesti
     SearchSuggestionsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
