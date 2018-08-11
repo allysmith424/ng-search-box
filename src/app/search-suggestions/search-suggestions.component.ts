@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-search-suggestions',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search-suggestions.component.css']
 })
 export class SearchSuggestionsComponent implements OnInit {
+
+  @Input() suggestion;
 
   constructor() { }
 

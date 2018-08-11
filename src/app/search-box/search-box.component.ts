@@ -10,6 +10,7 @@ export class SearchBoxComponent implements OnInit {
 
   searchForm: FormGroup;
   @Output() searchTermEntered: EventEmitter<any> = new EventEmitter<any>();
+  @Output() latestSearchTerm: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() { }
 
@@ -23,6 +24,10 @@ export class SearchBoxComponent implements OnInit {
 
   get searchTerm() {
     return this.searchForm.get('searchTerm');
+  }
+
+  onKeyup() {
+    this.latestSearchTerm.emit(this.searchForm.value.searchTerm.trim());
   }
 
   searchClicked() {

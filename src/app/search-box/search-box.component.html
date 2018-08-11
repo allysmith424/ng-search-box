@@ -3,7 +3,8 @@
     <input  class="search-box-input"
             type="text"
             placeholder="Search"
-            formControlName="searchTerm">
+            formControlName="searchTerm"
+            (keyup)="onKeyup($event)">
   </form>
   <button 
     (click)="searchClicked()">

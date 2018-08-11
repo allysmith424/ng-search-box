@@ -8,32 +8,40 @@ import { ALL_SEARCH_RESULTS } from './mock-data';
 })
 export class AppComponent {
 
-  results = [];
+  searchEntered;
+  results;
+  suggestions;
   loadingResults;
 
   onSearchTermEntered(searchTerm) {
-    console.log('search term from app', searchTerm);
-    this.getData(searchTerm);
+    this.getData(searchTerm, 'results');
+    console.log('results', this.results);
   }
 
-  findMatches(data, searchTerm) {
+  onLatestSearchTerm(searchTerm) {
+    this.getData(searchTerm, 'suggestions');
+    console.log('suggestions', this.suggestions);
+  }
+
+  findMatches(data, searchTerm, destination) {
     const searchRegEx = new RegExp(searchTerm, 'gi');
+    const matches = [];
     for (let i = 0; i < data.accountResults.length; i++) {
       if (data.accountResults[i].name.match(searchRegEx)) {
-        this.results.push(data.accountResults[i]);
+        matches.push(data.accountResults[i]);
       }
     }
     for (let i = 0; i < data.repositoryResults.length; i++) {
       if (data.repositoryResults[i].name.match(searchRegEx)) {
-        this.results.push(data.repositoryResults[i]);
+        matches.push(data.repositoryResults[i]);
       } else if (data.repositoryResults[i].namespace.match(searchRegEx)) {
-        this.results.push(data.repositoryResults[i]);
+        matches.push(data.repositoryResults[i]);
       }
     }
-    console.log(this.results);
+    destination === 'results' ? this.results = matches : this.suggestions = matches;
   }
 
-  getData(searchTerm) {
+  getData(searchTerm, destination) {
 
     const dataPromise = new Promise((resolve, reject) => {
       this.loadingResults = true;
@@ -45,11 +53,12 @@ export class AppComponent {
         } else {
           resolve(response);
         }
-      }, 1000);
+      }, 2000);
     });
 
     dataPromise.then((result) => {
-      this.findMatches(result, searchTerm);
+      this.suggestions = [];
+      this.findMatches(result, searchTerm, destination);
     }).catch((err) => {
       console.log(err);
     });
